@@ -366,6 +366,16 @@ var IG_practice_end = {
     },
 }
 
+var ig_practice = {
+    timeline: [
+        IG_instructions,
+        { timeline: ebbinghaus_practice },
+        { timeline: mullerlyer_practice },
+        { timeline: verticalhorizontal_practice },
+        IG_practice_end,
+    ],
+}
+
 // Block trials ==================================================================================
 function create_debrief(illusion_name = "Ponzo") {
     var debrief = {
@@ -466,14 +476,4 @@ function IG_create_block(
         randomize_order: true,
     }
     return task_block
-}
-
-var ig_practice = {
-    timeline: [
-        IG_instructions,
-        { timeline: ebbinghaus_practice },
-        { timeline: mullerlyer_practice },
-        { timeline: verticalhorizontal_practice },
-        IG_practice_end,
-    ],
 }
