@@ -1,4 +1,5 @@
 // Global variables ===============================================================================
+const path = "https://realitybending.github.io/IllusionGame/v3/"
 var block_number = 1 // block indexing variable
 var trial_number = 1 // trial indexing variable
 
@@ -21,8 +22,8 @@ var mullerlyer_instructions =
     "<p>Your task is to select which <b>line is longer</b> in length as fast as you can, without making errors.</p>" +
     "<p>Don't get distracted by the surrounding black arrows at the end of the red lines!</p>" +
     "<p>Press <b>the UP or the DOWN arrow</b> to indicate where is the longer <b>red line.</b></p>" +
-    "<div style='float: center'><img src='v3/images/MullerLyer_Demo.png' height='200'></img>" +
-    "<p><img src='v3/images/answer_updown_keyboard.PNG' height='100'></img></p>" +
+    `<div style='float: center'><img src='${path}/images/MullerLyer_Demo.png' height='200'></img>` +
+    `<p><img src='${path}/images/answer_updown_keyboard.PNG' height='100'></img></p>` +
     "<p class='small'>In this example, the correct answer is the <b>UP arrow</b>.</p></div>" +
     "<p>Are you ready? <b>Press ENTER to start</b></p>"
 
@@ -31,8 +32,8 @@ var ebbinghaus_instructions =
     "<p>Your task is to select which <b>red circle is bigger</b> in size as fast as you can, without making errors.</p>" +
     "<p>Don't get distracted by the surrounding black circles around the red circles!</p>" +
     "<p>Press <b>the LEFT or the RIGHT arrow</b> to indicate which is the bigger <b>red circle.</b></p>" +
-    "<div style='float: center'><img src='v3/images/Ebbinghaus_Demo.png' height='200'></img>" +
-    "<p><img src='v3/images/answer_leftright_keyboard.PNG' height='100'></img></p>" +
+    `<div style='float: center'><img src='${path}/images/Ebbinghaus_Demo.png' height='200'></img>` +
+    `<p><img src='${path}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
     "<p class='small'>In this example, the correct answer is the <b>LEFT arrow</b>.</p></div>" +
     "<p>Are you ready? <b>Press ENTER to start</b></p>"
 
@@ -41,8 +42,8 @@ var verticalhorizontal_instructions =
     "<p>Your task is to tell <b>which line is longer</b> in length, regardless of their orientation, as fast as you can, and without making errors.</p>" +
     "<p>Don't get distracted by the orientation of the lines!</p>" +
     "<p>Press <b>the LEFT or the RIGHT arrow</b> to indicate which <b>line is the longer one.</b></p>" +
-    "<div style='float: center'><img src='v3/images/VerticalHorizontal_Demo.png' height='200'></img>" +
-    "<p><img src='v3/images/answer_leftright_keyboard.PNG' height='100'></img></p>" +
+    `<div style='float: center'><img src='${path}/images/VerticalHorizontal_Demo.png' height='200'></img>` +
+    `<p><img src='${path}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
     "<p class='small'>In this example, the correct answer is the <b>LEFT arrow</b>.</p></div>" +
     "<p>Are you ready? <b>Press ENTER to start</b></p>"
 
@@ -203,7 +204,7 @@ function IG_create_trial(
     var trial = {
         type: jsPsychImageKeyboardResponse,
         stimulus: function () {
-            return "v3/" + jsPsych.timelineVariable("stimulus")
+            return path + jsPsych.timelineVariable("stimulus")
         },
         data: function () {
             return jsPsych.timelineVariable("data")
@@ -304,7 +305,7 @@ function IG_make_trials(
     // Preload images
     timeline.push({
         type: jsPsychPreload,
-        images: stim_list.map((a) => "v3/" + a.stimulus),
+        images: stim_list.map((a) => path + a.stimulus),
     })
 
     // Instructions

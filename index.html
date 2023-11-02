@@ -13,10 +13,12 @@
         <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response"></script>
 
         <!-- Load Illusion Game scripts -->
-        <script src="v3/stimuli/stimuli_training.js"></script>
-        <script src="v3/stimuli/stimuli_part1.js"></script>
-        <script src="v3/stimuli/stimuli_part2.js"></script>
-        <script src="v3/IllusionGame.js"></script>
+        <script src="https://realitybending.github.io/IllusionGame/v3/stimuli/stimuli_training.js"></script>
+
+        <!-- <script src="v3/stimuli/stimuli_training.js"></script> -->
+        <script src="https://realitybending.github.io/IllusionGame/v3/stimuli/stimuli_part1.js"></script>
+        <script src="https://realitybending.github.io/IllusionGame/v3/stimuli/stimuli_part2.js"></script>
+        <script src="https://realitybending.github.io/IllusionGame/v3/IllusionGame.js"></script>
 
         <link
             href="https://unpkg.com/jspsych/css/jspsych.css"
@@ -54,25 +56,25 @@
         })
 
         // Enter fullscreen mode
-        // timeline.push({
-        //     type: jsPsychFullscreen,
-        //     fullscreen_mode: true,
-        //     delay_after: 0,
-        // })
+        timeline.push({
+            type: jsPsychFullscreen,
+            fullscreen_mode: true,
+            delay_after: 0,
+        })
 
         // Illusion Game =======================================================
 
         // Practice ------------------------------------------------------------
 
-        timeline.push({
-            timeline: [
-                IG_instructions,
-                { timeline: ebbinghaus_practice },
-                { timeline: mullerlyer_practice },
-                { timeline: verticalhorizontal_practice },
-                IG_practice_end,
-            ],
-        })
+        // timeline.push({
+        //     timeline: [
+        //         IG_instructions,
+        //         { timeline: ebbinghaus_practice },
+        //         { timeline: mullerlyer_practice },
+        //         { timeline: verticalhorizontal_practice },
+        //         IG_practice_end,
+        //     ],
+        // })
 
         // Task Blocks -----------------------------------------------------------------
 
@@ -86,13 +88,14 @@
 
         // End =================================================================
         // Exit fullscreen mode
-        // timeline.push({
-        //     type: jsPsychFullscreen,
-        //     fullscreen_mode: false,
-        // })
+        timeline.push({
+            type: jsPsychFullscreen,
+            fullscreen_mode: false,
+        })
 
         /* ----------------- Run the timeline ----------------- */
         // jsPsych.run(timeline)
-        jsPsych.simulate(timeline, "data-only")
+        jsPsych.simulate(timeline, "visual")
+        // jsPsych.simulate(timeline, "data-only")
     </script>
 </html>
