@@ -1,5 +1,4 @@
 // Global variables ===============================================================================
-const path = "https://realitybending.github.io/IllusionGame/v3/"
 var block_number = 1 // block indexing variable
 var trial_number = 1 // trial indexing variable
 
@@ -7,48 +6,13 @@ var trial_number = 1 // trial indexing variable
 // General instructions
 var IG_instructions = {
     type: jsPsychHtmlButtonResponse,
-    choices: ["Start the practice!"],
-    stimulus:
-        "<p><b>Illusion Game</b></p>" +
-        "<p>In this game of speed and reflex, you will need to make <b>visual judgments</b> (for instance, which circle is the biggest, or which line is the longest), as fast and as correctly as possible, while <b>resisting different visual illusions</b>.</p>" +
-        "<p>We are going to start with some examples of all the illusions you will encounter in the game.</p>",
+    choices: [ig_text_startpractice],
+    stimulus: ig_instructions,
     data: { screen: "IG_instructions" },
 }
 
-// Instructions for Illusion Trials
-
-var mullerlyer_instructions =
-    "<p>In this part, two horizontal red lines will appear one above the other.</p>" +
-    "<p>Your task is to select which <b>line is longer</b> in length as fast as you can, without making errors.</p>" +
-    "<p>Don't get distracted by the surrounding black arrows at the end of the red lines!</p>" +
-    "<p>Press <b>the UP or the DOWN arrow</b> to indicate where is the longer <b>red line.</b></p>" +
-    `<div style='float: center'><img src='${path}/images/MullerLyer_Demo.png' height='200'></img>` +
-    `<p><img src='${path}/images/answer_updown_keyboard.PNG' height='100'></img></p>` +
-    "<p class='small'>In this example, the correct answer is the <b>UP arrow</b>.</p></div>" +
-    "<p>Are you ready? <b>Press ENTER to start</b></p>"
-
-var ebbinghaus_instructions =
-    "<p>In this part, two red circles will appear side by side on the screen.</p>" +
-    "<p>Your task is to select which <b>red circle is bigger</b> in size as fast as you can, without making errors.</p>" +
-    "<p>Don't get distracted by the surrounding black circles around the red circles!</p>" +
-    "<p>Press <b>the LEFT or the RIGHT arrow</b> to indicate which is the bigger <b>red circle.</b></p>" +
-    `<div style='float: center'><img src='${path}/images/Ebbinghaus_Demo.png' height='200'></img>` +
-    `<p><img src='${path}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
-    "<p class='small'>In this example, the correct answer is the <b>LEFT arrow</b>.</p></div>" +
-    "<p>Are you ready? <b>Press ENTER to start</b></p>"
-
-var verticalhorizontal_instructions =
-    "<p>In this part, two red lines will appear side by side.</p>" +
-    "<p>Your task is to tell <b>which line is longer</b> in length, regardless of their orientation, as fast as you can, and without making errors.</p>" +
-    "<p>Don't get distracted by the orientation of the lines!</p>" +
-    "<p>Press <b>the LEFT or the RIGHT arrow</b> to indicate which <b>line is the longer one.</b></p>" +
-    `<div style='float: center'><img src='${path}/images/VerticalHorizontal_Demo.png' height='200'></img>` +
-    `<p><img src='${path}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
-    "<p class='small'>In this example, the correct answer is the <b>LEFT arrow</b>.</p></div>" +
-    "<p>Are you ready? <b>Press ENTER to start</b></p>"
-
 function add_blocknumber(instructions, block) {
-    return "<p><b>Part " + block + "/6" + "</b></p>" + instructions
+    return "<p><b>" + ig_text_part + block + "/6" + "</b></p>" + instructions
 }
 
 // Math utilities =================================================================================
@@ -131,14 +95,14 @@ function get_debrief_display(results, type = "Block") {
     if (type === "Block") {
         // Debrief at end of each block
         var score =
-            "<p>Your score for this illusion is " +
+            ig_text_score +
             '<p style="color: black; font-size: 48px; font-weight: bold;">' +
             Math.round(results.score * 10) / 10 +
             " %</p>"
     } else if (type === "Final") {
         // Final debriefing at end of game
         var score =
-            "<p><strong>Your final score is</strong> " +
+            ig_text_finalscore +
             '<p style="color: black; font-size: 48px; font-weight: bold;">&#127881; ' +
             Math.round(results.score) +
             " &#127881;</p>"
@@ -147,18 +111,26 @@ function get_debrief_display(results, type = "Block") {
     return {
         display_score: score,
         display_accuracy:
-            "<p style='color:rgb(76,175,80);'> Correct Responses: <b>" +
+            "<p style='color:rgb(76,175,80);'>" +
+            ig_text_correct +
+            "<b>" +
             round_digits(results.accuracy * 100) +
             "" +
             "%</b></p>",
         display_rt:
-            "<p style='color:rgb(139, 195, 74);'> Average Response Time: <b>" +
+            "<p style='color:rgb(139, 195, 74);'>" +
+            ig_text_averagert +
+            "<b>" +
             round_digits(results.mean_reaction_time) +
             "</b> ms.</p>",
         display_comparison:
-            "<p style='color:rgb(76,175,80);'>You performed better than <b>" +
+            "<p style='color:rgb(76,175,80);'>" +
+            ig_text_popcompare1 +
+            "<b>" +
             round_digits(results.percentage) +
-            "</b>% of the population.</p>",
+            "</b>% " +
+            ig_text_popcompare1 +
+            "</p>",
     }
 }
 
@@ -337,7 +309,7 @@ function IG_make_trials(
         } else if (stimuli === stimuli_training) {
             timeline.push({
                 type: jsPsychHtmlButtonResponse,
-                choices: ["Continue"],
+                choices: [ig_text_continue],
                 post_trial_gap: 500,
                 on_start: function () {
                     document.body.style.cursor = "auto"
@@ -362,7 +334,7 @@ function IG_make_trials(
 // Practice trials ================================================================================
 var ebbinghaus_practice = IG_make_trials(
     (stimuli = stimuli_training),
-    (instructions = "<p><b>Practice</b></p>" + ebbinghaus_instructions),
+    (instructions = ig_text_practice + ebbinghaus_instructions),
     (illusion_name = "Ebbinghaus"),
     (type = "leftright"),
     (marker = false)
@@ -370,7 +342,7 @@ var ebbinghaus_practice = IG_make_trials(
 
 var mullerlyer_practice = IG_make_trials(
     (stimuli = stimuli_training),
-    (instructions = "<p><b>Practice</b></p>" + mullerlyer_instructions),
+    (instructions = ig_text_practice + mullerlyer_instructions),
     (illusion_name = "MullerLyer"),
     (type = "updown"),
     (marker = false)
@@ -378,7 +350,7 @@ var mullerlyer_practice = IG_make_trials(
 
 var verticalhorizontal_practice = IG_make_trials(
     (stimuli = stimuli_training),
-    (instructions = "<p><b>Practice</b></p>" + verticalhorizontal_instructions),
+    (instructions = ig_text_practice + verticalhorizontal_instructions),
     (illusion_name = "VerticalHorizontal"),
     (type = "leftright"),
     (marker = false)
@@ -386,14 +358,8 @@ var verticalhorizontal_practice = IG_make_trials(
 
 var IG_practice_end = {
     type: jsPsychHtmlButtonResponse,
-    choices: ["Let's Play!"],
-    stimulus:
-        "<p><b>TRAINING COMPLETED</b></p>" +
-        "<p>In the next phase, there will be more trials, and some might be harder too.<br> Moreover, after each illusion block, a <b>score</b> will be calculated based on speed (time you took to answer) and accuracy (number of errors).</p>" +
-        "<p><i>Try to keep up a high score!</i></p><br>" +
-        "<p>Note that it can be <i>really</i> challenging at times, so you will need to rely on your <b>intuition</b> and gut feeling to answer as fast as you can without making errors.</p>" +
-        "<p>Each illusion block will be repeated two times (so that you have the opportunity to improve your score), but the order of the blocks is random.</p>" +
-        "<p>Remember, your goal is to be as <b>fast</b> and <b>accurate</b> as possible. Good luck!</p><br>",
+    choices: [ig_text_letsplay],
+    stimulus: ig_practice_end,
     data: { screen: "practice_debrief" },
     on_finish: function () {
         block_number = 1 // reset block number for illusion trials
@@ -404,7 +370,7 @@ var IG_practice_end = {
 function create_debrief(illusion_name = "Ponzo") {
     var debrief = {
         type: jsPsychHtmlButtonResponse,
-        choices: ["Continue"],
+        choices: [ig_text_continue],
         on_start: function () {
             document.body.style.cursor = "auto"
         },
@@ -417,15 +383,14 @@ function create_debrief(illusion_name = "Ponzo") {
             var show_screen = get_debrief_display(results)
             return (
                 show_screen.display_score +
-                // "<hr>" +
                 // // For debugging purposes, show the raw data.
                 // show_screen.display_accuracy +
                 // "<hr>" +
                 // show_screen.display_rt +
                 // "<hr>" +
-                // //
                 // show_screen.display_comparison +
-                "<hr><p>Can you do better in the next illusion?</p>"
+                "<hr>" +
+                ig_text_dobetter
             )
         },
         data: { screen: "block_results" },

@@ -15,9 +15,10 @@
         <!-- Load Illusion Game scripts -->
         <script src="https://realitybending.github.io/IllusionGame/v3/stimuli/stimuli_training.js"></script>
 
-        <!-- <script src="v3/stimuli/stimuli_training.js"></script> -->
+        <script src="https://realitybending.github.io/IllusionGame/v3/stimuli/stimuli_training.js"></script>
         <script src="https://realitybending.github.io/IllusionGame/v3/stimuli/stimuli_part1.js"></script>
         <script src="https://realitybending.github.io/IllusionGame/v3/stimuli/stimuli_part2.js"></script>
+        <script src="https://realitybending.github.io/IllusionGame/v3/instructions.js"></script>
         <script src="https://realitybending.github.io/IllusionGame/v3/IllusionGame.js"></script>
 
         <link
@@ -66,15 +67,15 @@
 
         // Practice ------------------------------------------------------------
 
-        // timeline.push({
-        //     timeline: [
-        //         IG_instructions,
-        //         { timeline: ebbinghaus_practice },
-        //         { timeline: mullerlyer_practice },
-        //         { timeline: verticalhorizontal_practice },
-        //         IG_practice_end,
-        //     ],
-        // })
+        timeline.push({
+            timeline: [
+                IG_instructions,
+                { timeline: ebbinghaus_practice },
+                { timeline: mullerlyer_practice },
+                { timeline: verticalhorizontal_practice },
+                IG_practice_end,
+            ],
+        })
 
         // Task Blocks -----------------------------------------------------------------
 
