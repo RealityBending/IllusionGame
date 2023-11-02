@@ -467,3 +467,13 @@ function IG_create_block(
     }
     return task_block
 }
+
+var ig_practice = {
+    timeline: [
+        IG_instructions,
+        { timeline: ebbinghaus_practice },
+        { timeline: mullerlyer_practice },
+        { timeline: verticalhorizontal_practice },
+        IG_practice_end,
+    ],
+}
