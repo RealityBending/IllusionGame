@@ -278,6 +278,7 @@ function IG_make_trials(
     timeline.push({
         type: jsPsychPreload,
         images: stim_list.map((a) => path + a.stimulus),
+        data: { screen: "IG_Preload" },
     })
 
     // Instructions
@@ -289,6 +290,7 @@ function IG_make_trials(
         choices: ["enter"],
         stimulus: instructions,
         post_trial_gap: 500,
+        data: { screen: "IG_Instructions" },
     })
 
     // Create Trials timeline
@@ -324,7 +326,7 @@ function IG_make_trials(
                         //"<hr><p>Can you do better in the next illusion?</p>"
                     )
                 },
-                data: { screen: "practice_block_results" },
+                data: { screen: "IG_PracticeResults" },
             })
         }
     }
@@ -360,7 +362,7 @@ var IG_practice_end = {
     type: jsPsychHtmlButtonResponse,
     choices: [ig_text_letsplay],
     stimulus: ig_practice_end,
-    data: { screen: "practice_debrief" },
+    data: { screen: "IG_PracticeDebrief" },
     on_finish: function () {
         block_number = 1 // reset block number for illusion trials
     },
@@ -403,7 +405,7 @@ function create_debrief(illusion_name = "Ponzo") {
                 ig_text_dobetter
             )
         },
-        data: { screen: "block_results" },
+        data: { screen: "IG_BlockResults" },
         // Reset trial number and update block number
         on_finish: function () {
             block_number += 1
