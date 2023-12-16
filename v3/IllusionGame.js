@@ -200,9 +200,8 @@ function IG_create_trial(
             document.querySelector("#marker").remove()
         }
         // ISI: duration of the fixation cross
-        data.isi =
-            jsPsych.data.get().last(2).values()[0].time_elapsed -
-            jsPsych.data.get().last(3).values()[0].time_elapsed
+        data.isi = jsPsych.data.get().last(2).values()[0].time_elapsed
+
         // Score the response as correct or incorrect.
         if (data.response != -1) {
             if (
@@ -365,6 +364,7 @@ var IG_practice_end = {
     data: { screen: "IG_PracticeDebrief" },
     on_finish: function () {
         block_number = 1 // reset block number for illusion trials
+        trial_number = 1 // reset trial number for illusion trials
     },
 }
 
