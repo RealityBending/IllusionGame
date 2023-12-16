@@ -202,6 +202,9 @@ function IG_create_trial(
         // ISI: duration of the fixation cross
         data.isi = jsPsych.data.get().last(2).values()[0].time_elapsed
 
+        // Save fixation cross position
+        data.fixation_cross = jsPsych.data.get().last(2).values()[0].stimulus
+
         // Score the response as correct or incorrect.
         if (data.response != -1) {
             if (
