@@ -28,9 +28,7 @@ function cumulative_probability(x, mean, sd) {
     var a3 = 1.421413741
     var a4 = -1.453152027
     var a5 = 1.061405429
-    var erf =
-        1 -
-        ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t * Math.exp(-z * z)
+    var erf = 1 - ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t * Math.exp(-z * z)
     var sign = 1
     if (z < 0) {
         sign = -1
@@ -39,9 +37,7 @@ function cumulative_probability(x, mean, sd) {
 }
 
 function round_digits(x, digits = 2) {
-    return Number(
-        Math.round(parseFloat(x + "e" + digits)) + "e-" + digits
-    ).toFixed(digits)
+    return Number(Math.round(parseFloat(x + "e" + digits)) + "e-" + digits).toFixed(digits)
 }
 
 // EEG / Physio trigger
@@ -57,9 +53,7 @@ width:${marker_position[2]}px; height:${marker_position[3]}px";></div>`
 // Feedback and Debriefing ========================================================================
 function get_results(illusion_mean, illusion_sd, illusion_type) {
     if (typeof illusion_type != "undefined") {
-        var trials = jsPsych.data
-            .get()
-            .filter({ screen: "IG_Trial", type: illusion_type }) // results by block
+        var trials = jsPsych.data.get().filter({ screen: "IG_Trial", type: illusion_type }) // results by block
     } else {
         var trials = jsPsych.data.get().filter({ screen: "IG_Trial" }) // overall results
     }
@@ -73,8 +67,7 @@ function get_results(illusion_mean, illusion_sd, illusion_type) {
         if (score_to_display < 0) {
             score_to_display = 0
         }
-        var percentile =
-            100 - cumulative_probability(ies, illusion_mean, illusion_sd) * 100
+        var percentile = 100 - cumulative_probability(ies, illusion_mean, illusion_sd) * 100
     } else {
         var rt_mean_correct = ""
         var ies = ""
@@ -167,16 +160,12 @@ function jittered_fixation_cross() {
 }
 
 // Trial
-function IG_create_trial(
-    illusion_name = "Ponzo",
-    type = "updown",
-    marker = true
-) {
+function IG_create_trial(illusion_name = "Ponzo", type = "updown", marker = true) {
     // Common trial parameters
     var trial = {
         type: jsPsychImageKeyboardResponse,
         stimulus: function () {
-            return path + jsPsych.timelineVariable("stimulus")
+            return path_ig + jsPsych.timelineVariable("stimulus")
         },
         data: function () {
             return jsPsych.timelineVariable("data")
@@ -207,12 +196,7 @@ function IG_create_trial(
 
         // Score the response as correct or incorrect.
         if (data.response != -1) {
-            if (
-                jsPsych.pluginAPI.compareKeys(
-                    data.response,
-                    data.correct_response
-                )
-            ) {
+            if (jsPsych.pluginAPI.compareKeys(data.response, data.correct_response)) {
                 data.correct = true
             } else {
                 data.correct = false
@@ -235,12 +219,7 @@ function IG_create_trial(
                 }
             }
 
-            if (
-                jsPsych.pluginAPI.compareKeys(
-                    data.response,
-                    data.correct_response
-                )
-            ) {
+            if (jsPsych.pluginAPI.compareKeys(data.response, data.correct_response)) {
                 data.correct = true
             } else {
                 data.correct = false
@@ -261,25 +240,16 @@ function IG_create_trial(
     return trial
 }
 
-function IG_make_trials(
-    stimuli,
-    instructions,
-    illusion_name,
-    type,
-    marker = true,
-    debrief = true
-) {
+function IG_make_trials(stimuli, instructions, illusion_name, type, marker = true, debrief = true) {
     var timeline = []
 
     // Set stimuli (var stimuli is loaded in stimuli/stimuli.js)
-    var stim_list = stimuli.filter(
-        (stimuli) => stimuli.data.Illusion_Type === illusion_name
-    )
+    var stim_list = stimuli.filter((stimuli) => stimuli.data.Illusion_Type === illusion_name)
 
     // Preload images
     timeline.push({
         type: jsPsychPreload,
-        images: stim_list.map((a) => path + a.stimulus),
+        images: stim_list.map((a) => path_ig + a.stimulus),
         data: { screen: "IG_Preload" },
     })
 
@@ -322,9 +292,7 @@ function IG_make_trials(
                     var results = get_results(1000, 400, illusion_name)
                     var show_screen = get_debrief_display(results)
                     return (
-                        show_screen.display_accuracy +
-                        "<hr>" +
-                        show_screen.display_rt
+                        show_screen.display_accuracy + "<hr>" + show_screen.display_rt
                         //"<hr><p>Can you do better in the next illusion?</p>"
                     )
                 },
@@ -418,11 +386,7 @@ function create_debrief(illusion_name = "Ponzo") {
     return debrief
 }
 
-function IG_create_block(
-    stimuli,
-    show_blocknumber = true,
-    show_marker = false
-) {
+function IG_create_block(stimuli, show_blocknumber = true, show_marker = false) {
     /* ---------------------- MULLERLYER ILLUSION --------------------- */
     var timeline_mullerlyer = IG_make_trials(
         stimuli,
@@ -458,10 +422,7 @@ function IG_create_block(
         stimuli,
         (instructions = function (show_blocknumber) {
             if (show_blocknumber) {
-                return add_blocknumber(
-                    verticalhorizontal_instructions,
-                    block_number
-                )
+                return add_blocknumber(verticalhorizontal_instructions, block_number)
             } else {
                 return verticalhorizontal_instructions
             }
