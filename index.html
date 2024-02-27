@@ -13,11 +13,16 @@
         <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response"></script>
 
         <!-- Load Illusion Game scripts -->
-        <script src="https://realitybending.github.io/IllusionGame/v3/stimuli/stimuli_training.js"></script>
+        <!-- <script src="https://realitybending.github.io/IllusionGame/v3/stimuli/stimuli_training.js"></script>
         <script src="https://realitybending.github.io/IllusionGame/v3/stimuli/stimuli_part1.js"></script>
         <script src="https://realitybending.github.io/IllusionGame/v3/stimuli/stimuli_part2.js"></script>
         <script src="https://realitybending.github.io/IllusionGame/v3/instructions.js"></script>
-        <script src="https://realitybending.github.io/IllusionGame/v3/IllusionGame.js"></script>
+        <script src="https://realitybending.github.io/IllusionGame/v3/IllusionGame.js"></script> -->
+        <script src="v3/stimuli/stimuli_training.js"></script>
+        <script src="v3/stimuli/stimuli_part1.js"></script>
+        <script src="v3/stimuli/stimuli_part2.js"></script>
+        <script src="v3/instructions.js"></script>
+        <script src="v3/IllusionGame.js"></script>
 
         <link
             href="https://unpkg.com/jspsych/css/jspsych.css"
@@ -61,8 +66,10 @@
             delay_after: 0,
         })
 
-        // Illusion Game =======================================================
+        // Test
+        // timeline.push(IG_create_block(stimuli_part1, (show_marker = false)))
 
+        // Illusion Game =======================================================
         timeline.push(ig_practice)
         // Randomize order of the 2 parts
         for (var task of jsPsych.randomization.shuffleNoRepeats([
