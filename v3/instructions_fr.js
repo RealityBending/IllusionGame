@@ -1,4 +1,4 @@
-const path = "https://realitybending.github.io/IllusionGame/v3/"
+const path_ig = "https://realitybending.github.io/IllusionGame/v3/"
 
 // Instructions ==================================================================================
 // General instructions
@@ -13,8 +13,8 @@ var mullerlyer_instructions =
     "<p>Vous devez sélectionner quelle <b>ligne est la plus longue</b> aussi rapidement que vous pouvez sans faire d'erreurs.</p>" +
     "<p>Ne soyez pas distrait par les croix noires à la fin des lignes rouges!</p>" +
     "<p>Appuyez sur <b>la flèche HAUT ou BAS</b> pour indiquer où est la plus longue <b>ligne rouge</b>.</p>" +
-    `<div style='float: center'><img src='${path}/images/MullerLyer_Demo.png' height='200'></img>` +
-    `<p><img src='${path}/images/answer_updown_keyboard.PNG' height='100'></img></p>` +
+    `<div style='float: center'><img src='${path_ig}/images/MullerLyer_Demo.png' height='200'></img>` +
+    `<p><img src='${path_ig}/images/answer_updown_keyboard.PNG' height='100'></img></p>` +
     "<p class='small'Dans cet exemple, la réponse correcte est la <b>flèche HAUT</b>.</p></div>" +
     "<p>Êtes-vous prêt? <b>Appuyer sur la touche ENTRÉE pour démarrer</b></p>"
 
@@ -23,8 +23,8 @@ var ebbinghaus_instructions =
     "<p>Vous devez sélectionner quel <b>cercle rouge est plus grand</b> aussi rapidement que possible et sans faire d'erreurs.</p>" +
     "<p>Ne soyez pas distraits par les cercles noirs autour des cercles rouges!</p>" +
     "<p>Appuyez sur <b>la flèche GAUCHE ou DROITE</b> pour indiquer quel est le plus grand <b>cercle rouge</b>.</p>" +
-    `<div style='float: center'><img src='${path}/images/Ebbinghaus_Demo.png' height='200'></img>` +
-    `<p><img src='${path}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
+    `<div style='float: center'><img src='${path_ig}/images/Ebbinghaus_Demo.png' height='200'></img>` +
+    `<p><img src='${path_ig}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
     "<p class='small'>Dans cet exemple, la réponse correcte est la <b>flèche GAUCHE</b>.</p></div>" +
     "<p>Êtes-vous prêt? <b>Appuyer sur la touche ENTRÉE pour démarrer</b></p>"
 
@@ -33,8 +33,8 @@ var verticalhorizontal_instructions =
     "<p>Vous devez sélectionner <b>quelle est la plus longue</b>, peu importe leur orientation, aussi vite que vous pouvez et sans faire d'erreurs.</p>" +
     "<p>Ne soyez pas distrait par l'orientation des lignes!</p>" +
     "<p>Appuyez sur <b>la flèche GAUCHE ou DROITE</b> pour indiquer quelle <b>ligne est la plus longue</b>.</p>" +
-    `<div style='float: center'><img src='${path}/images/VerticalHorizontal_Demo.png' height='200'></img>` +
-    `<p><img src='${path}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
+    `<div style='float: center'><img src='${path_ig}/images/VerticalHorizontal_Demo.png' height='200'></img>` +
+    `<p><img src='${path_ig}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
     "<p class='small'>Dans cet exemple, la réponse correcte est la <b>flèche GAUCHE</b>.</p></div>" +
     "<p>Êtes-vous prêt? <b>Appuyer sur la touche ENTRÉE pour démarrer</b></p>"
 
@@ -52,8 +52,7 @@ var ig_text_startpractice = "Démarrer l'entraînement"
 var ig_text_letsplay = "Commencer le jeu!"
 var ig_text_part = "Partie "
 var ig_text_continue = "Continuer"
-var ig_text_dobetter =
-    "<p>Pouvez-vous faire mieux avec la prochaine illusion?</p>"
+var ig_text_dobetter = "<p>Pouvez-vous faire mieux avec la prochaine illusion?</p>"
 var ig_text_score = "<p>Votre score pour cette illusion est</p>"
 var ig_text_finalscore = "<p><strong>Votre score final est</strong></p>"
 var ig_text_correct = "Réponses correctes:"

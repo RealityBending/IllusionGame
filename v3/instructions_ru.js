@@ -1,4 +1,4 @@
-const path = "https://realitybending.github.io/IllusionGame/v3/"
+const path_ig = "https://realitybending.github.io/IllusionGame/v3/"
 
 // Instructions ==================================================================================
 // General instructions
@@ -25,7 +25,7 @@ var mullerlyer_instructions =
     // "Press the UP or the DOWN arrow to indicate where is the longer red line"
     "<p>Используйте <b>стрелку ВВЕРХ или ВНИЗ</b> на клавиатуре, чтобы указать, какая <b>красная линяя длиннее</b>.</p>" +
     `<div style='float: center'><img src='${path}/images/MullerLyer_Demo.png' height='200'></img>` +
-    `<p><img src='${path}/images/answer_updown_keyboard.PNG' height='100'></img></p>` +
+    `<p><img src='${path_ig}/images/answer_updown_keyboard.PNG' height='100'></img></p>` +
     // "In this example, the correct answer is the UP arrow."
     "<p class='small'>В этом примере правильный ответ – верхняя линяя, то есть <b>стрелка вверх</b>.</p></div>" +
     // "Are you ready? Press ENTER to start."
@@ -41,7 +41,7 @@ var ebbinghaus_instructions =
     // "Press <b>the LEFT or the RIGHT arrow</b> to indicate which is the bigger red circle."
     "<p>Используйте <b>ЛЕВУЮ или ПРАВУЮ стрелку</b> на клавиатуре, чтобы указать, какой <b>красный круг</b> больше.</p>" +
     `<div style='float: center'><img src='${path}/images/Ebbinghaus_Demo.png' height='200'></img>` +
-    `<p><img src='${path}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
+    `<p><img src='${path_ig}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
     // "In this example, the correct answer is the <b>LEFT arrow</b>."
     "<p class='small'>В этом примере верный ответ – левый круг, то есть <b>левая стрелка</b>.</p></div>" +
     // "Are you ready? Press ENTER to start"
@@ -57,7 +57,7 @@ var verticalhorizontal_instructions =
     // "Press <b>the LEFT or the RIGHT arrow</b> to indicate which line is the longer one."
     "<p>Используйте <b>ЛЕВУЮ или ПРАВУЮ стрелку</b> на клавиатуре, чтобы указать, где находится <b>более длинная линия</b>.</p>" +
     `<div style='float: center'><img src='${path}/images/VerticalHorizontal_Demo.png' height='200'></img>` +
-    `<p><img src='${path}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
+    `<p><img src='${path_ig}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
     // "In this example, the correct answer is the <b>LEFT arrow</b>."
     "<p class='small'>В этом примере верный ответ – линия слева, то есть <b>левая стрелка</b>.</p></div>" +
     // "Are you ready? Press ENTER to start"
@@ -87,8 +87,7 @@ var ig_text_part = "Часть "
 // "Continue"
 var ig_text_continue = "Продолжить"
 // Can you do better in the next illusion?
-var ig_text_dobetter =
-    "<p>Попробуете справиться лучше со следующей иллюзией?</p>"
+var ig_text_dobetter = "<p>Попробуете справиться лучше со следующей иллюзией?</p>"
 // "Your score for this illusion is"
 var ig_text_score = "<p>Ваш результат по этому блоку иллюзий</p>"
 // "Your final score is"
