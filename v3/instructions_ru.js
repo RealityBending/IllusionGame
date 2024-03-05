@@ -4,13 +4,13 @@ const path_ig = "https://realitybending.github.io/IllusionGame/v3/"
 // General instructions
 var ig_instructions =
     // Illusion Game
-    '<h3>Игра иллюзий</h3>' +
+    "<h3>Игра иллюзий</h3>" +
     // "In this game of speed and reflex"
-    "<p>Перед вами игра, в которой скорость реакции имеет значение.</p>" + 
+    "<p>Перед вами игра, в которой скорость реакции имеет значение.</p>" +
     // "you will need to make visual judgments"
     "<p>Вам потребуется максимально быстро <b>визуально оценивать</b> объекты, не совершая ошибок.</p>" +
     // "(for instance, which circle is the biggest, or which line is the longest), as fast and as correctly as possible, while <b>resisting different visual illusions"
-    "<p>Например, определить какой круг больше или какая линия длиннее, <b>сопротивляясь эффектам различных иллюзий</b>.<br></p>" + 
+    "<p>Например, определить какой круг больше или какая линия длиннее, <b>сопротивляясь эффектам различных иллюзий</b>.<br></p>" +
     // "We are going to start with some examples of all the illusions you will encounter in the game."
     "<p>Мы начнем с короткой тренировки, в ходе которой вы познакомитесь с типами иллюзий, которые встретятся в игре.</p>"
 
@@ -24,7 +24,7 @@ var mullerlyer_instructions =
     "<p>Пожалуйста, постарайтесь не обращать внимания на черные стрелки в конце красных линий!</p>" +
     // "Press the UP or the DOWN arrow to indicate where is the longer red line"
     "<p>Используйте <b>стрелку ВВЕРХ или ВНИЗ</b> на клавиатуре, чтобы указать, какая <b>красная линяя длиннее</b>.</p>" +
-    `<div style='float: center'><img src='${path}/images/MullerLyer_Demo.png' height='200'></img>` +
+    `<div style='float: center'><img src='${path_ig}/images/MullerLyer_Demo.png' height='200'></img>` +
     `<p><img src='${path_ig}/images/answer_updown_keyboard.PNG' height='100'></img></p>` +
     // "In this example, the correct answer is the UP arrow."
     "<p class='small'>В этом примере правильный ответ – верхняя линяя, то есть <b>стрелка вверх</b>.</p></div>" +
@@ -40,7 +40,7 @@ var ebbinghaus_instructions =
     "<p>Пожалуйста, постарайтесь не отвлекаться на черные круги!</p>" +
     // "Press <b>the LEFT or the RIGHT arrow</b> to indicate which is the bigger red circle."
     "<p>Используйте <b>ЛЕВУЮ или ПРАВУЮ стрелку</b> на клавиатуре, чтобы указать, какой <b>красный круг</b> больше.</p>" +
-    `<div style='float: center'><img src='${path}/images/Ebbinghaus_Demo.png' height='200'></img>` +
+    `<div style='float: center'><img src='${path_ig}/images/Ebbinghaus_Demo.png' height='200'></img>` +
     `<p><img src='${path_ig}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
     // "In this example, the correct answer is the <b>LEFT arrow</b>."
     "<p class='small'>В этом примере верный ответ – левый круг, то есть <b>левая стрелка</b>.</p></div>" +
@@ -56,7 +56,7 @@ var verticalhorizontal_instructions =
     "<p>Пожалуйста, постарайтесь не отвлекаться на то, как расположены линии!</p>" +
     // "Press <b>the LEFT or the RIGHT arrow</b> to indicate which line is the longer one."
     "<p>Используйте <b>ЛЕВУЮ или ПРАВУЮ стрелку</b> на клавиатуре, чтобы указать, где находится <b>более длинная линия</b>.</p>" +
-    `<div style='float: center'><img src='${path}/images/VerticalHorizontal_Demo.png' height='200'></img>` +
+    `<div style='float: center'><img src='${path_ig}/images/VerticalHorizontal_Demo.png' height='200'></img>` +
     `<p><img src='${path_ig}/images/answer_leftright_keyboard.PNG' height='100'></img></p>` +
     // "In this example, the correct answer is the <b>LEFT arrow</b>."
     "<p class='small'>В этом примере верный ответ – линия слева, то есть <b>левая стрелка</b>.</p></div>" +
