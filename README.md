@@ -3,32 +3,19 @@ A psychometric game based on visual illusions.
 
 ## Versions
 
-- v1: IllusionGameValidation
-  - [Makowski et al. (2023)](https://www.nature.com/articles/s41598-023-33148-5)
-- v2: IllusionGameReliability; IllusionGameEEG
-- v3: IllusionGameSuggestibility
-- v4: Plans:
+- **V1**
+  - [IllusionGameValidation](https://github.com/RealityBending/IllusionGameValidation)
+    - [Stimuli generation](https://github.com/RealityBending/IllusionGameValidation/blob/main/study1/make_stimuli.py)
+    - [Makowski et al. (2023)](https://www.nature.com/articles/s41598-023-33148-5)
+- **V2** 
+  - [IllusionGameReliability](https://github.com/RealityBending/IllusionGameReliability)
+  - IllusionGameEEG
+- **V3**
+  - [Stimuli selection](https://realitybending.github.io/IllusionGame/v3/stimuli_parameters.html)
+  - [Stimuli generation](https://github.com/RealityBending/IllusionGame/blob/main/v3/stimuli_generation.py)
+  - IllusionGameSuggestibility
+- **V4**: Plans
   - [ ] Mobile-friendly
   - [ ] Display score chart
   - [ ] One block with correct/incorrect feedback (?)
 
-
-## Stimuli
-
-![](utils/Delboeuf_Mosaic.png)
-
-![](utils/Ebbinghaus_Mosaic.png)
-
-![](utils/MullerLyer_Mosaic.png)
-
-![](utils/Ponzo_Mosaic.png)
-
-![](utils/RodFrame_Mosaic.png)
-
-![](utils/VerticalHorizontal_Mosaic.png)
-
-![](utils/Poggendorff.png)
-
-![](utils/Zollner_Mosaic.png)
-
-![](utils/Contrast_Mosaic.png)
