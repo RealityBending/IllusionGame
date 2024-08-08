@@ -16,6 +16,7 @@ A psychometric game based on visual illusions.
   - IllusionGameSuggestibility
 - **V4**: Plans
   - [ ] Mobile-friendly
-  - [ ] Display score chart
+  - [ ] Display score chart. Final chart as spider charts showing the score for each illusion.
+    - Advertise as: "test your susceptibility" 
   - [ ] One block with correct/incorrect feedback (?)
 
