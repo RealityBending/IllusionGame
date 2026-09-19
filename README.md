@@ -14,9 +14,12 @@ A psychometric game based on visual illusions.
   - [Stimuli selection](https://realitybending.github.io/IllusionGame/v3/stimuli_parameters.html)
   - [Stimuli generation](https://github.com/RealityBending/IllusionGame/blob/main/v3/stimuli_generation.py)
   - IllusionGameSuggestibility
+- **V3 - Chromostereopsis**
+  - [Experiment](https://realitybending.github.io//IllusionGame/chromostereopsis/index.html)
 - **V4**: Plans
   - [ ] Mobile-friendly
   - [ ] Display score chart. Final chart as spider charts showing the score for each illusion.
     - Advertise as: "test your susceptibility" 
   - [ ] One block with correct/incorrect feedback (?)
+  - [ ] Integration within Doggo/Nogo
 

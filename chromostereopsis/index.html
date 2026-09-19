@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>Chromostereopsis - Illusion Game pilot</title>
+        <script src="stimulus.js"></script>
+        <script src="design.js"></script>
+        <script src="experiment.js"></script>
+        <style>
+            /* Black surround throughout: background luminance modulates the illusion, and switching
+               between bright and dark screens would change pupil size between trials */
+            html,
+            body {
+                margin: 0;
+                height: 100%;
+                background: #000;
+                color: #ccc;
+                font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+                font-size: 18px;
+                line-height: 1.5;
+            }
+            .screen {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                box-sizing: border-box;
+                padding: 24px 16px;
+            }
+            .text {
+                max-width: 640px;
+                width: 100%;
+            }
+            /* Touch: no text selection, no scroll/zoom gestures on the task screens */
+            #screen-trial,
+            #screen-break {
+                touch-action: none;
+                -webkit-user-select: none;
+                user-select: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+            @media (max-width: 600px) {
+                body {
+                    font-size: 16px;
+                }
+                h1 {
+                    font-size: 22px;
+                }
+            }
+            h1 {
+                font-weight: 600;
+                font-size: 28px;
+                color: #eee;
+            }
+            button {
+                font: inherit;
+                padding: 10px 24px;
+                border: 1px solid #888;
+                border-radius: 6px;
+                background: #222;
+                color: #eee;
+                cursor: pointer;
+                margin: 8px;
+            }
+            button:hover {
+                background: #333;
+            }
+            label {
+                display: block;
+                margin: 12px 0 4px;
+            }
+            input,
+            select,
+            textarea {
+                font: inherit;
+                background: #111;
+                color: #eee;
+                border: 1px solid #555;
+                border-radius: 4px;
+                padding: 6px 8px;
+            }
+            select,
+            input[type="number"] {
+                min-width: 220px;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            button {
+                min-height: 44px; /* comfortable tap target */
+            }
+            /* Form card and chip-style choices */
+            .card {
+                width: 100%;
+                max-width: 560px;
+                box-sizing: border-box;
+                padding: 28px 28px 24px;
+                background: #121212;
+                border: 1px solid #262626;
+                border-radius: 18px;
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            }
+            .card h1 {
+                margin: 0 0 4px;
+            }
+            .card .subtitle {
+                margin: 0 0 24px;
+                color: #888;
+                font-size: 15px;
+            }
+            .field {
+                margin: 0 0 22px;
+            }
+            .field-label {
+                display: block;
+                margin: 0 0 8px;
+                font-size: 15px;
+                font-weight: 600;
+                color: #ddd;
+            }
+            .field-label small {
+                display: block;
+                font-weight: 400;
+                color: #888;
+                font-size: 13px;
+            }
+            .field.nested {
+                margin: -8px 0 22px;
+                padding: 16px 16px 4px;
+                border-left: 2px solid #333;
+                background: #171717;
+                border-radius: 0 12px 12px 0;
+            }
+            .card input[type="number"] {
+                width: 100%;
+                min-width: 0;
+                padding: 12px 14px;
+                border-radius: 12px;
+                border: 1px solid #333;
+                background: #1a1a1a;
+                font-size: 17px;
+            }
+            .card input[type="number"]:focus {
+                outline: none;
+                border-color: #777;
+            }
+            .chips {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .chip {
+                margin: 0;
+            }
+            .chip input {
+                position: absolute;
+                opacity: 0;
+                width: 0;
+                height: 0;
+                pointer-events: none;
+            }
+            .chip span {
+                display: inline-block;
+                padding: 9px 16px;
+                border-radius: 999px;
+                border: 1px solid #383838;
+                background: #1c1c1c;
+                color: #ccc;
+                font-size: 15px;
+                line-height: 1.3;
+                cursor: pointer;
+                transition: background 0.15s, border-color 0.15s, color 0.15s;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+            }
+            .chip:hover span {
+                border-color: #666;
+            }
+            .chip input:checked + span {
+                background: #eee;
+                border-color: #eee;
+                color: #000;
+                font-weight: 600;
+            }
+            .chip input:focus-visible + span {
+                outline: 2px solid #888;
+                outline-offset: 2px;
+            }
+            button.primary {
+                display: block;
+                width: 100%;
+                margin: 8px 0 0;
+                padding: 14px;
+                border: none;
+                border-radius: 12px;
+                background: #eee;
+                color: #000;
+                font-weight: 600;
+                font-size: 17px;
+            }
+            button.primary:hover {
+                background: #fff;
+            }
+            @media (max-width: 600px) {
+                .card {
+                    padding: 22px 18px 18px;
+                    border-radius: 14px;
+                }
+            }
+            .key {
+                display: inline-block;
+                padding: 0 8px;
+                border: 1px solid #888;
+                border-radius: 4px;
+                background: #222;
+                color: #fff;
+            }
+            /* Trial screen */
+            #screen-trial {
+                position: relative;
+            }
+            #fixation {
+                position: absolute;
+                font-size: 64px;
+                color: #ccc;
+                visibility: hidden;
+            }
+            #stimulus {
+                visibility: hidden;
+                image-rendering: pixelated; /* keep dither cells crisp if the browser ever scales it */
+            }
+            /* Progress bar: thin and dim, at the bottom edge, so it adds little light to the display */
+            #progress {
+                position: absolute;
+                bottom: 12px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 40vw;
+                text-align: center;
+                color: #666;
+                font-size: 13px;
+            }
+            #progress-bar {
+                height: 4px;
+                background: #222;
+                border-radius: 2px;
+                overflow: hidden;
+            }
+            #progress-fill {
+                height: 100%;
+                width: 0;
+                background: #777;
+                transition: width 0.3s;
+            }
+            /* Instruction examples */
+            .examples {
+                display: flex;
+                gap: 24px;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin: 16px 0;
+            }
+            .examples figure {
+                margin: 0;
+                text-align: center;
+            }
+            .examples canvas {
+                display: block;
+                border: 1px solid #333;
+                max-width: 100%;
+                height: auto;
+            }
+            .examples figcaption {
+                margin-top: 8px;
+                font-size: 16px;
+            }
+            .key.pulse {
+                font-size: 22px;
+                padding: 2px 12px;
+                animation: press 1.2s ease-in-out infinite;
+            }
+            @keyframes press {
+                0%,
+                100% {
+                    background: #222;
+                    transform: translateY(0);
+                    box-shadow: 0 3px 0 #555;
+                }
+                50% {
+                    background: #4caf50;
+                    transform: translateY(3px);
+                    box-shadow: 0 0 0 #555;
+                }
+            }
+            label.inline {
+                display: block;
+                margin: 16px 0;
+            }
+            label.inline input {
+                margin-right: 8px;
+            }
+            #data-preview {
+                width: 90vw;
+                max-width: 900px;
+                height: 240px;
+                font-family: monospace;
+                font-size: 12px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Consent (placeholder content) -->
+        <section id="screen-consent" class="screen">
+            <form id="consent-form" class="text">
+                <h1>Information and consent</h1>
+                <p>
+                    <i>Placeholder.</i> This page will hold the study information sheet: who is running
+                    the study, its purpose, what taking part involves, how long it takes, that
+                    participation is voluntary and can be stopped at any time, what data are collected
+                    and how they are stored and shared, and whom to contact.
+                </p>
+                <p>
+                    By ticking the box below you confirm that you have read this information, that you
+                    are at least 18 years old, and that you agree to take part.
+                </p>
+                <label class="inline"><input type="checkbox" name="consent" required /> I have read the information above and I consent to take part.</label>
+                <p>
+                    The task works with a <b>keyboard</b> (arrow keys) or a <b>touch screen</b>. The next
+                    button will switch to full screen.
+                </p>
+                <p><button type="submit">Continue</button></p>
+            </form>
+        </section>
+
+        <!-- Demographics -->
+        <section id="screen-demographics" class="screen">
+            <form id="demographics-form" class="card">
+            <h1>About you</h1>
+            <p class="subtitle">A few things that matter for colour and depth perception. About a minute.</p>
+
+            <div class="field">
+                <span class="field-label">Sex</span>
+                <div class="chips">
+                    <label class="chip"><input type="radio" name="sex" value="male" required /><span>Male</span></label>
+                    <label class="chip"><input type="radio" name="sex" value="female" /><span>Female</span></label>
+                    <label class="chip"><input type="radio" name="sex" value="other" /><span>Other</span></label>
+                    <label class="chip"><input type="radio" name="sex" value="prefer_not_to_say" /><span>Prefer not to say</span></label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="field-label" for="age">Age</label>
+                <input type="number" name="age" id="age" min="10" max="120" placeholder="Years" inputmode="numeric" required />
+            </div>
+
+            <div class="field">
+                <span class="field-label">Do you wear glasses or contact lenses?</span>
+                <div class="chips">
+                    <label class="chip"><input type="radio" name="glasses" value="none" required /><span>No</span></label>
+                    <label class="chip"><input type="radio" name="glasses" value="glasses" /><span>Glasses</span></label>
+                    <label class="chip"><input type="radio" name="glasses" value="contacts" /><span>Contact lenses</span></label>
+                    <label class="chip"><input type="radio" name="glasses" value="both" /><span>Both</span></label>
+                </div>
+            </div>
+
+            <div class="field nested" id="correction-details" hidden>
+                <span class="field-label">What is the correction for? <small>Tick all that apply</small></span>
+                <div class="chips">
+                    <label class="chip"><input type="checkbox" name="correction_type" value="myopia" /><span>Short-sighted</span></label>
+                    <label class="chip"><input type="checkbox" name="correction_type" value="hyperopia" /><span>Long-sighted</span></label>
+                    <label class="chip"><input type="checkbox" name="correction_type" value="astigmatism" /><span>Astigmatism</span></label>
+                    <label class="chip"><input type="checkbox" name="correction_type" value="presbyopia" /><span>Reading glasses</span></label>
+                    <label class="chip"><input type="checkbox" name="correction_type" value="unknown" /><span>Other / don't know</span></label>
+                </div>
+                <span class="field-label">Are you wearing them right now?</span>
+                <div class="chips">
+                    <label class="chip"><input type="radio" name="correction_now" value="yes" /><span>Yes</span></label>
+                    <label class="chip"><input type="radio" name="correction_now" value="no" /><span>No</span></label>
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">Colour vision deficiency? <small>e.g. red-green colour blindness</small></span>
+                <div class="chips">
+                    <label class="chip"><input type="radio" name="colour_vision" value="no" required /><span>No</span></label>
+                    <label class="chip"><input type="radio" name="colour_vision" value="yes" /><span>Yes</span></label>
+                    <label class="chip"><input type="radio" name="colour_vision" value="unsure" /><span>Not sure</span></label>
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">Any known problem with depth or 3D vision? <small>e.g. lazy eye, squint, trouble with 3D films</small></span>
+                <div class="chips">
+                    <label class="chip"><input type="radio" name="depth_vision" value="no" required /><span>No</span></label>
+                    <label class="chip"><input type="radio" name="depth_vision" value="yes" /><span>Yes</span></label>
+                    <label class="chip"><input type="radio" name="depth_vision" value="unsure" /><span>Not sure</span></label>
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">What are you using?</span>
+                <div class="chips">
+                    <label class="chip"><input type="radio" name="device" value="laptop" required /><span>Laptop</span></label>
+                    <label class="chip"><input type="radio" name="device" value="desktop" /><span>Desktop</span></label>
+                    <label class="chip"><input type="radio" name="device" value="tablet" /><span>Tablet</span></label>
+                    <label class="chip"><input type="radio" name="device" value="phone" /><span>Phone</span></label>
+                    <label class="chip"><input type="radio" name="device" value="other" /><span>Other</span></label>
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">How far is your face from the screen?</span>
+                <div class="chips">
+                    <label class="chip"><input type="radio" name="viewing_distance" value="lt40" required /><span>Under 40 cm</span></label>
+                    <label class="chip"><input type="radio" name="viewing_distance" value="40to70" /><span>40 to 70 cm</span></label>
+                    <label class="chip"><input type="radio" name="viewing_distance" value="gt70" /><span>Over 70 cm</span></label>
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">How bright is the room?</span>
+                <div class="chips">
+                    <label class="chip"><input type="radio" name="lighting" value="dark" required /><span>Dark</span></label>
+                    <label class="chip"><input type="radio" name="lighting" value="dim" /><span>Dim</span></label>
+                    <label class="chip"><input type="radio" name="lighting" value="bright" /><span>Bright</span></label>
+                </div>
+            </div>
+
+            <button type="submit" class="primary">Continue</button>
+            </form>
+        </section>
+
+        <!-- Instructions -->
+        <section id="screen-instructions" class="screen">
+            <div class="text">
+                <h1>Instructions</h1>
+                <p>
+                    On each trial you will see <b>two coloured circles</b>, one on the left and one on
+                    the right. Your task is to decide <b>which circle is the largest</b>.
+                </p>
+                <p class="kb-only">
+                    Press <span class="key">&larr;</span> if the <b>left</b> circle is larger, and
+                    <span class="key">&rarr;</span> if the <b>right</b> circle is larger.
+                </p>
+                <p class="touch-only">
+                    <b>Tap the left half</b> of the screen if the <b>left</b> circle is larger, and
+                    <b>tap the right half</b> if the <b>right</b> circle is larger.
+                </p>
+                <div class="examples">
+                    <figure>
+                        <canvas id="example-left" width="280" height="210"></canvas>
+                        <figcaption>
+                            The <b>left</b> circle is larger:<br />
+                            <span class="kb-only">press <span class="key pulse">&larr;</span></span>
+                            <span class="touch-only">tap the <span class="key pulse">left half</span></span>
+                        </figcaption>
+                    </figure>
+                    <figure>
+                        <canvas id="example-right" width="280" height="210"></canvas>
+                        <figcaption>
+                            The <b>right</b> circle is larger:<br />
+                            <span class="kb-only">press <span class="key pulse">&rarr;</span></span>
+                            <span class="touch-only">tap the <span class="key pulse">right half</span></span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <p>
+                    This is a reaction time task: answer <b>as fast as you can</b> while staying
+                    accurate. The differences will usually be much smaller than in these examples; go
+                    with your first impression rather than scrutinising the circles.
+                </p>
+                <p>
+                    There are <span id="n-trials"></span> trials in <span id="n-blocks"></span> short
+                    blocks, with a break between blocks. Keep both eyes open and stay in full screen.
+                    <span class="touch-only">On a phone, hold it in <b>landscape</b> for a larger display.</span>
+                </p>
+                <button id="instructions-button">Begin</button>
+            </div>
+        </section>
+
+        <!-- Trials -->
+        <section id="screen-trial" class="screen">
+            <div id="fixation">+</div>
+            <canvas id="stimulus" width="800" height="600"></canvas>
+            <div id="progress">
+                <div id="progress-bar"><div id="progress-fill"></div></div>
+                <div id="progress-label"></div>
+            </div>
+        </section>
+
+        <!-- Break -->
+        <section id="screen-break" class="screen">
+            <div id="break-text" class="text"></div>
+        </section>
+
+        <!-- End -->
+        <section id="screen-end" class="screen">
+            <div class="text" style="text-align: center">
+                <h1>Thank you!</h1>
+                <div id="end-summary"></div>
+                <p>
+                    <button id="download-csv">Download data (CSV)</button>
+                    <button id="download-json">Download data (JSON)</button>
+                </p>
+            </div>
+            <textarea id="data-preview" readonly></textarea>
+        </section>
+    </body>
+</html>
