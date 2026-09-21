@@ -20,7 +20,7 @@ const DESIGN = {
     // Task difficulty: magnitude of the objective area difference between the two discs (as in
     // Pyllusion's Delboeuf: 0.1 = the larger disc has 10% more area, 1 = twice the area, i.e. 1.41x
     // the diameter). Never zero, so every trial has a correct answer. The sign is balanced separately.
-    difference: [0.1, 0.25, 0.5, 1.0],
+    difference: [0.05, 0.1, 0.25, 0.5],
 
     // Illusion strength: +/-1 = pure colours, sign = which panel gets the red-leaning disc; 0 = both
     // panels the same purple (no colour context at all: each participant's baseline left/right
